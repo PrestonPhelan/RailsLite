@@ -1,5 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext'
+require 'active_support/inflector'
 require 'erb'
 require_relative './session'
 
@@ -38,13 +39,17 @@ class ControllerBase
   # use ERB and binding to evaluate templates
   # pass the rendered html to render_content
   def render(template_name)
+    folder = self.class.name.underscore
+    file = "#{template_name}.html.erb"
+    path = "./views/#{folder}/#{file}"
+    
+    content = ERB.new(File.read(path)).result(binding)
+    render_content(content, 'text/html')
   end
 
   # method exposing a `Session` object
-  def session
-  end
+  def session() end
 
   # use this with the router to call action_name (:index, :show, :create...)
-  def invoke_action(name)
-  end
+  def invoke_action(name) end
 end
