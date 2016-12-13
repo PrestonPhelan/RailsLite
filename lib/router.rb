@@ -36,6 +36,8 @@ class Router
   # evaluate the proc in the context of the instance
   # for syntactic sugar :)
   def draw(&proc)
+    instance_eval(&proc)
+    ##http_method pattern, controller_class, action_name
   end
 
   # make each of these methods that
