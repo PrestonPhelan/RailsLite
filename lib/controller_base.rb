@@ -8,7 +8,7 @@ class ControllerBase
   attr_reader :req, :res, :params
 
   # Setup the controller
-  def initialize(req, res, params)
+  def initialize(req, res, params = {})
     @req = req
     @res = res
     @params = params
@@ -25,7 +25,7 @@ class ControllerBase
     res.location = url
     res.status = 302
     @already_built_response = true
-    @session.store_session(res)
+    session.store_session(res)
     nil
   end
 
@@ -37,7 +37,7 @@ class ControllerBase
     res.set_header('Content-Type', content_type)
     res.write(content)
     @already_built_response = true
-    @session.store_session(res)
+    session.store_session(res)
     nil
   end
 
